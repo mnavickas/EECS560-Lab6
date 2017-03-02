@@ -1,10 +1,6 @@
 #include "BinarySearchTree.hpp"
 #include <iostream>
 
-#include <stdlib.h>
-#include <time.h>
-
-
 namespace Tree
 {
 /******************************************************************************

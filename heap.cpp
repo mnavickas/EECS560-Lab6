@@ -1,10 +1,5 @@
 #include "heap.hpp"
-#include "math.h"
 #include <iostream>
-
-#include <stdlib.h>
-#include <time.h>
-
 
 //#define DEBUG
 #ifdef DEBUG
