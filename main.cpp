@@ -10,10 +10,4 @@ using namespace std;
 int main()
 {
 
-  Tree::BinarySearchTree tree;
-  tree.levelorder();
-  tree.remove(1);
-  tree.levelorder();
-
-
 }

@@ -16,31 +16,6 @@ namespace KHeap
 {
 Heap::Heap( int aSize, int aKValue ): mArray( new int[aSize] ), mLastIndex ( -1 ), cMaxSize( aSize ), K(aKValue)
 {
-  for(int i = 0; i< aSize; i++)
-  {
-    mArray[i] = -1;
-  }
-  srand(time(NULL));
-  int i;
-  for(i = 0; i < 15; i++)
-  {
-    mArray[i]= ( rand()%99 + 1 );
-    mLastIndex++;
-  }
-  mArray[i++]= 10;
-  mLastIndex++;
-  mArray[i++]= 10;
-  mLastIndex++;
-  mArray[i++]= 10;
-  mLastIndex++;
-
-  Build();
-
-  DEBUG_EVAL
-  (
-    std::cout<< "Built"<<std::endl;
-    levelOrder();
-  )
 
 }
 
