@@ -9,27 +9,29 @@
 #define NODE_H
 namespace Tree
 {
+	template<typename T>
 	class Node
 	{
 	public:
 		Node();
-		Node(const Node& other);
+		Node(const Node<T>& other);
 
-		void setValue(int aValue);
+		void setValue(T aValue);
 		int getValue() const;
 
-		Node* getLeft() const;
-		Node* getRight() const;
+		Node<T>* getLeft() const;
+		Node<T>* getRight() const;
 
-		void setLeft(Node* aLeft);
-		void setRight(Node* Right);
+		void setLeft(Node<T>* aLeft);
+		void setRight(Node<T>* Right);
 		void printValue() const;
 
 	private:
-		int mValue;
-		Node* mLeft;
-		Node* mRight;
+		T mValue;
+		Node<T>* mLeft;
+		Node<T>* mRight;
 	};
 } // end of namespace Tree
+#include "Node.cpp"
 
 #endif

@@ -1,4 +1,3 @@
-#include "BinarySearchTree.hpp"
 #include <iostream>
 
 namespace Tree
@@ -6,14 +5,16 @@ namespace Tree
 /******************************************************************************
  *
  ******************************************************************************/
-BinarySearchTree::BinarySearchTree(): mRoot(nullptr)
+template <typename T>
+BinarySearchTree<T>::BinarySearchTree(): mRoot(nullptr)
 {
 }
 
 /******************************************************************************
  *
  ******************************************************************************/
-BinarySearchTree::~BinarySearchTree()
+template <typename T>
+BinarySearchTree<T>::~BinarySearchTree()
 {
 	if(mRoot == nullptr) return;
 	deleteTree( mRoot );
@@ -22,7 +23,8 @@ BinarySearchTree::~BinarySearchTree()
 /******************************************************************************
  *
  ******************************************************************************/
-bool BinarySearchTree::isEmpty() const
+template <typename T>
+bool BinarySearchTree<T>::isEmpty() const
 {
 	return (mRoot == nullptr);
 }
@@ -30,11 +32,12 @@ bool BinarySearchTree::isEmpty() const
 /******************************************************************************
  *
  ******************************************************************************/
-bool BinarySearchTree::insert(int value)
+template <typename T>
+bool BinarySearchTree<T>::insert(int value)
 {
 	if( mRoot == nullptr )
 	{
-		mRoot = new Node();
+		mRoot = new Node<T>();
 		mRoot->setValue(value);
 		return true;
 	}
@@ -47,7 +50,8 @@ bool BinarySearchTree::insert(int value)
 /******************************************************************************
  *
  ******************************************************************************/
-Node* BinarySearchTree::search(int value) const
+template <typename T>
+Node<T>* BinarySearchTree<T>::search(int value) const
 {
 	if( mRoot == nullptr )
 	{
@@ -56,7 +60,12 @@ Node* BinarySearchTree::search(int value) const
 	return search( value, mRoot );
 }
 
-void BinarySearchTree::remove(int value)
+
+/******************************************************************************
+ *
+ ******************************************************************************/
+template <typename T>
+void BinarySearchTree<T>::remove(int value)
 {
 	if(isEmpty())
 	{
@@ -70,33 +79,36 @@ void BinarySearchTree::remove(int value)
 	}while(removed);
 }
 
- /******************************************************************************
-  *
-  ******************************************************************************/
- int BinarySearchTree::deleteMin()
- {
- 	if(mRoot == nullptr)
- 	{
- 		return -1;
- 	}
- 	return deleteMin(mRoot, nullptr);
- }
- /******************************************************************************
-  *
-  ******************************************************************************/
- int BinarySearchTree::deleteMax()
- {
- 	if(mRoot == nullptr)
- 	{
- 		return -1;
- 	}
- 	return deleteMax(mRoot, nullptr);
- }
+/******************************************************************************
+ *
+ ******************************************************************************/
+template <typename T>
+int BinarySearchTree<T>::deleteMin()
+{
+	if(mRoot == nullptr)
+	{
+		return -1;
+	}
+	return deleteMin(mRoot, nullptr);
+}
+/******************************************************************************
+ *
+ ******************************************************************************/
+template <typename T>
+int BinarySearchTree<T>::deleteMax()
+{
+	if(mRoot == nullptr)
+	{
+		return -1;
+	}
+	return deleteMax(mRoot, nullptr);
+}
 
 /******************************************************************************
  *
  ******************************************************************************/
-void BinarySearchTree::preorder() const
+template <typename T>
+void BinarySearchTree<T>::preorder() const
 {
 	if(isEmpty())
 	{
@@ -109,7 +121,8 @@ void BinarySearchTree::preorder() const
 /******************************************************************************
  *
  ******************************************************************************/
-void BinarySearchTree::inorder() const
+template <typename T>
+void BinarySearchTree<T>::inorder() const
 {
 	if(isEmpty())
 	{
@@ -122,7 +135,8 @@ void BinarySearchTree::inorder() const
 /******************************************************************************
  *
  ******************************************************************************/
-void BinarySearchTree::levelorder() const
+template <typename T>
+void BinarySearchTree<T>::levelorder() const
 {
 	if(isEmpty())
 	{
@@ -135,8 +149,11 @@ void BinarySearchTree::levelorder() const
 
 	while( !queue.isEmpty() )
 	{
-		QNode* temp = queue.peekFront();
-		Node* node = temp->getValue();
+		// because the original LinkedList I adapted this from returns
+		// a boolean signifying success of popFront() and not the values
+		// that was popped, we have to peek and then pop it. I could change
+		// it but this works. So..
+		Node<T>* node = queue.peekFront()->getValue();
 		queue.popFront();
 
 		if( nullptr != node->getLeft() )
@@ -158,13 +175,14 @@ void BinarySearchTree::levelorder() const
 /******************************************************************************
  *
  ******************************************************************************/
-bool BinarySearchTree::insert(int value, Node* subtree)
+template <typename T>
+bool BinarySearchTree<T>::insert(int value, Node<T>* subtree)
 {
 	if( value < subtree->getValue() )
 	{
 		if( subtree->getLeft() == nullptr )
 		{
-			subtree->setLeft( new Node() );
+			subtree->setLeft( new Node<T>() );
 			subtree->getLeft()->setValue(value);
 			return true;
 		}
@@ -178,7 +196,7 @@ bool BinarySearchTree::insert(int value, Node* subtree)
 	{
 		if( subtree->getRight() == nullptr )
 		{
-			subtree->setRight( new Node() );
+			subtree->setRight( new Node<T>() );
 			subtree->getRight()->setValue(value);
 			return true;
 		}
@@ -192,7 +210,8 @@ bool BinarySearchTree::insert(int value, Node* subtree)
 /******************************************************************************
  *
  ******************************************************************************/
-Node* BinarySearchTree::search(int value, Node* subtree) const
+template <typename T>
+Node<T>* BinarySearchTree<T>::search(int value, Node<T>* subtree) const
 {
 	if( subtree->getValue() == value )
 	{
@@ -226,76 +245,78 @@ Node* BinarySearchTree::search(int value, Node* subtree) const
 /******************************************************************************
  *
  ******************************************************************************/
-Node* BinarySearchTree::remove(Node* node, int value, bool* removed)
+template <typename T>
+Node<T>* BinarySearchTree<T>::remove(Node<T>* node, int value, bool* removed)
 {
-if(node == nullptr)
-{
-	return nullptr;
-}
-if( value < node->getValue() )
-{
-	//value would be in left tree
-	node->setLeft( remove(node->getLeft(),value, removed) );
-}
-else if( value > node->getValue() )
-{
-	// value would be in right tree
-	node->setRight( remove(node->getRight(), value, removed) );
-}
-else
-{
-	//this is the value
-
-	if(node->getLeft() == nullptr && node->getRight() == nullptr)
+	if(node == nullptr)
 	{
-		//no children;
-		*removed = true;
-		if(node == mRoot)
-		{
-			mRoot = nullptr;
-		}
-		//no children
-		delete node;
-		node = nullptr;
+		return nullptr;
 	}
-	else if ( node->getLeft() == nullptr )
+	if( value < node->getValue() )
 	{
-		*removed = true;
-		//only right child
-		Node* temp = node;
-		node = node->getRight();
-		if(temp == mRoot)
-		{
-			mRoot = node;
-		}
-		delete temp;
+		//value would be in left tree
+		node->setLeft( remove(node->getLeft(),value, removed) );
 	}
-	else if( node->getRight() == nullptr )
+	else if( value > node->getValue() )
 	{
-		*removed = true;
-		//only left child
-		Node* temp = node;
-		node = node->getLeft();
-		if(temp == mRoot)
-		{
-			mRoot = node;
-		}
-		delete temp;
+		// value would be in right tree
+		node->setRight( remove(node->getRight(), value, removed) );
 	}
 	else
 	{
-		//two children
-		Node* temp = findMin( node->getRight() );
-		node->setValue( temp->getValue() );
-		node->setRight( remove( node->getRight(), temp->getValue(),removed ) );
+		//this is the value
+
+		if(node->getLeft() == nullptr && node->getRight() == nullptr)
+		{
+			//no children;
+			*removed = true;
+			if(node == mRoot)
+			{
+				mRoot = nullptr;
+			}
+			//no children
+			delete node;
+			node = nullptr;
+		}
+		else if ( node->getLeft() == nullptr )
+		{
+			*removed = true;
+			//only right child
+			Node<T>* temp = node;
+			node = node->getRight();
+			if(temp == mRoot)
+			{
+				mRoot = node;
+			}
+			delete temp;
+		}
+		else if( node->getRight() == nullptr )
+		{
+			*removed = true;
+			//only left child
+			Node<T>* temp = node;
+			node = node->getLeft();
+			if(temp == mRoot)
+			{
+				mRoot = node;
+			}
+			delete temp;
+		}
+		else
+		{
+			//two children
+			Node<T>* temp = findMin( node->getRight() );
+			node->setValue( temp->getValue() );
+			node->setRight( remove( node->getRight(), temp->getValue(),removed ) );
+		}
 	}
-}
-return node;
+	return node;
 }
 /******************************************************************************
  *
  ******************************************************************************/
-int BinarySearchTree::deleteMin(Node* node, Node* previous)
+template <typename T>
+int BinarySearchTree<T>::deleteMin(Node<T>* node, Node<T>* previous)
 {
 	if(node->getLeft() != nullptr)
 	{
@@ -323,7 +344,8 @@ int BinarySearchTree::deleteMin(Node* node, Node* previous)
 /******************************************************************************
  *
  ******************************************************************************/
-int BinarySearchTree::deleteMax(Node* node, Node* previous)
+template <typename T>
+int BinarySearchTree<T>::deleteMax(Node<T>* node, Node<T>* previous)
 {
 	if(node->getRight() != nullptr)
 	{
@@ -349,7 +371,8 @@ int BinarySearchTree::deleteMax(Node* node, Node* previous)
 /******************************************************************************
  *
  ******************************************************************************/
-void BinarySearchTree::preorder(Node* node) const
+template <typename T>
+void BinarySearchTree<T>::preorder(Node<T>* node) const
 {
 	node->printValue();
 	if( node->getLeft() != nullptr ) preorder( node->getLeft() );
@@ -359,7 +382,8 @@ void BinarySearchTree::preorder(Node* node) const
 /******************************************************************************
  *
  ******************************************************************************/
-void BinarySearchTree::inorder(Node* node) const
+template <typename T>
+void BinarySearchTree<T>::inorder(Node<T>* node) const
 {
 
 	if( node->getLeft() != nullptr ) inorder( node->getLeft() );
@@ -370,7 +394,8 @@ void BinarySearchTree::inorder(Node* node) const
 /******************************************************************************
  *
  ******************************************************************************/
-void BinarySearchTree::deleteTree(Node* subtree)
+template <typename T>
+void BinarySearchTree<T>::deleteTree(Node<T>* subtree)
 {
 
 	if( subtree->getRight() != nullptr )
@@ -387,9 +412,10 @@ void BinarySearchTree::deleteTree(Node* subtree)
 /******************************************************************************
  *
  ******************************************************************************/
-Node* BinarySearchTree::findMin(Node* subtree)
+template <typename T>
+Node<T>* BinarySearchTree<T>::findMin(Node<T>* subtree)
 {
-	Node* node = subtree;
+	Node<T>* node = subtree;
 	while( node->getLeft() != nullptr )
 	{
 		node= node->getLeft();

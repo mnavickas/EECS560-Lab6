@@ -4,18 +4,18 @@
  *  Created on: Sep 21, 2015
  *      Author: Michael
  */
-
-#include "Node.hpp"
 #include <iostream>
 
 namespace Tree
 {
-Node::Node(): mLeft(nullptr),mRight(nullptr),mValue(-1)
+template<typename T>
+Node<T>::Node(): mLeft(nullptr),mRight(nullptr),mValue(T())
 {
 }
 
 // deep the node and its children onto *this
-Node::Node(const Node& other)
+template<typename T>
+Node<T>::Node(const Node<T>& other)
 {
 	mLeft = nullptr;
 	mRight = nullptr;
@@ -24,40 +24,46 @@ Node::Node(const Node& other)
 	if(other.getLeft() != nullptr )
 	{
 		//recursive. kinda.
-		mLeft = new Node(*other.getLeft());
+		mLeft = new Node<T>(*other.getLeft());
 	}
 	if(other.getRight() != nullptr )
 	{
 		//recursive. kinda.
-		mRight = new Node(*other.getRight());
+		mRight = new Node<T>(*other.getRight());
 	}
 }
-
-int Node::getValue() const
+template<typename T>
+int Node<T>::getValue() const
 {
 	return mValue;
 }
-Node* Node::getLeft() const
+template<typename T>
+Node<T>* Node<T>::getLeft() const
 {
 	return mLeft;
 }
-Node* Node::getRight() const
+template<typename T>
+Node<T>* Node<T>::getRight() const
 {
 	return mRight;
 }
-void Node::setRight(Node* aRight)
+template<typename T>
+void Node<T>::setRight(Node<T>* aRight)
 {
 	mRight = aRight;
 }
-void Node::setLeft(Node* aLeft)
+template<typename T>
+void Node<T>::setLeft(Node<T>* aLeft)
 {
 	mLeft = aLeft;
 }
-void Node::setValue(int aValue)
+template<typename T>
+void Node<T>::setValue(T aValue)
 {
 	mValue = aValue;
 }
-void Node::printValue() const
+template<typename T>
+void Node<T>::printValue() const
 {
 	std::cout<< mValue<<" ";
 }

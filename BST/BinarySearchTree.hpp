@@ -5,19 +5,19 @@
 #include "Queue/Deque.hpp"
 namespace Tree
 {
+	template <typename T>
 	class BinarySearchTree
 	{
 	public:
 		/* For level order print */
-		typedef ::Queue::Deque<Node*> Queue;
-		typedef ::Queue::Node<Node*> QNode;
+		typedef ::Queue::Deque<Node<T>*> Queue;
 
 	public:
 		BinarySearchTree();
 		~BinarySearchTree();
 		bool isEmpty() const;
 		bool insert(int value);
-		Node* search(int value) const;
+		Node<T>* search(int value) const;
 		void remove(int value);
 
 		int deleteMin();
@@ -29,23 +29,24 @@ namespace Tree
 
 	private:
 		/* recursive helpers */
-		bool insert(int value, Node* subtree);
-		Node* search(int value, Node* subtree) const;
-		Node* remove(Node* node, int value, bool* removed);
-		int deleteMin(Node* node, Node* previous);
-		int deleteMax(Node* node, Node* previous);
-		void preorder(Node* node) const;
-		void inorder(Node* node) const;
+		bool insert(int value, Node<T>* subtree);
+		Node<T>* search(int value, Node<T>* subtree) const;
+		Node<T>* remove(Node<T>* node, int value, bool* removed);
+		int deleteMin(Node<T>* node, Node<T>* previous);
+		int deleteMax(Node<T>* node, Node<T>* previous);
+		void preorder(Node<T>* node) const;
+		void inorder(Node<T>* node) const;
 
 	    /* local functions */
-		void deleteTree(Node* subtree);
-		Node* findMin(Node* subtree);
+		void deleteTree(Node<T>* subtree);
+		Node<T>* findMin(Node<T>* subtree);
 
 	private:
-		Node* mRoot;
+		Node<T>* mRoot;
 
 
 	};
 } // end of namespace Tree
+#include "BinarySearchTree.cpp"
 
 #endif
