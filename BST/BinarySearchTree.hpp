@@ -16,9 +16,9 @@ namespace Tree
 		BinarySearchTree();
 		~BinarySearchTree();
 		bool isEmpty() const;
-		bool insert(int value);
-		Node<T>* search(int value) const;
-		void remove(int value);
+		bool insert(T value);
+		Node<T>* search(T value) const;
+		void remove(T value);
 
 		T deleteMin();
 		T deleteMax();
@@ -29,9 +29,9 @@ namespace Tree
 
 	private:
 		/* recursive helpers */
-		bool insert(int value, Node<T>* subtree);
-		Node<T>* search(int value, Node<T>* subtree) const;
-		Node<T>* remove(Node<T>* node, int value, bool* removed);
+		bool insert(T value, Node<T>* subtree);
+		Node<T>* search(T value, Node<T>* subtree) const;
+		Node<T>* remove(Node<T>* node, T value, bool* removed);
 		T deleteMin(Node<T>* node, Node<T>* previous);
 		T deleteMax(Node<T>* node, Node<T>* previous);
 		void preorder(Node<T>* node) const;

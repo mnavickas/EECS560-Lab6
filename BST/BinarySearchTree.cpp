@@ -33,7 +33,7 @@ bool BinarySearchTree<T>::isEmpty() const
  *
  ******************************************************************************/
 template <typename T>
-bool BinarySearchTree<T>::insert(int value)
+bool BinarySearchTree<T>::insert(T value)
 {
 	if( mRoot == nullptr )
 	{
@@ -51,7 +51,7 @@ bool BinarySearchTree<T>::insert(int value)
  *
  ******************************************************************************/
 template <typename T>
-Node<T>* BinarySearchTree<T>::search(int value) const
+Node<T>* BinarySearchTree<T>::search(T value) const
 {
 	if( mRoot == nullptr )
 	{
@@ -65,7 +65,7 @@ Node<T>* BinarySearchTree<T>::search(int value) const
  *
  ******************************************************************************/
 template <typename T>
-void BinarySearchTree<T>::remove(int value)
+void BinarySearchTree<T>::remove(T value)
 {
 	if(isEmpty())
 	{
@@ -176,7 +176,7 @@ void BinarySearchTree<T>::levelorder() const
  *
  ******************************************************************************/
 template <typename T>
-bool BinarySearchTree<T>::insert(int value, Node<T>* subtree)
+bool BinarySearchTree<T>::insert(T value, Node<T>* subtree)
 {
 	if( value < subtree->getValue() )
 	{
@@ -211,7 +211,7 @@ bool BinarySearchTree<T>::insert(int value, Node<T>* subtree)
  *
  ******************************************************************************/
 template <typename T>
-Node<T>* BinarySearchTree<T>::search(int value, Node<T>* subtree) const
+Node<T>* BinarySearchTree<T>::search(T value, Node<T>* subtree) const
 {
 	if( subtree->getValue() == value )
 	{
@@ -246,7 +246,7 @@ Node<T>* BinarySearchTree<T>::search(int value, Node<T>* subtree) const
  *
  ******************************************************************************/
 template <typename T>
-Node<T>* BinarySearchTree<T>::remove(Node<T>* node, int value, bool* removed)
+Node<T>* BinarySearchTree<T>::remove(Node<T>* node, T value, bool* removed)
 {
 	if(node == nullptr)
 	{
@@ -334,7 +334,7 @@ T BinarySearchTree<T>::deleteMin(Node<T>* node, Node<T>* previous)
 		{
 			mRoot = node->getRight();
 		}
-		int value = node->getValue();
+		T value = node->getValue();
 		delete node;
 		return value;
 	}
@@ -362,7 +362,7 @@ T BinarySearchTree<T>::deleteMax(Node<T>* node, Node<T>* previous)
 		{
 			mRoot = node->getLeft();
 		}
-		int value = node->getValue();
+		T value = node->getValue();
 		delete node;
 		return value;
 	}
