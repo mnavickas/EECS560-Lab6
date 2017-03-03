@@ -20,8 +20,8 @@ namespace Tree
 		Node<T>* search(int value) const;
 		void remove(int value);
 
-		int deleteMin();
-		int deleteMax();
+		T deleteMin();
+		T deleteMax();
 
 		void preorder() const;
 		void inorder() const;
@@ -32,8 +32,8 @@ namespace Tree
 		bool insert(int value, Node<T>* subtree);
 		Node<T>* search(int value, Node<T>* subtree) const;
 		Node<T>* remove(Node<T>* node, int value, bool* removed);
-		int deleteMin(Node<T>* node, Node<T>* previous);
-		int deleteMax(Node<T>* node, Node<T>* previous);
+		T deleteMin(Node<T>* node, Node<T>* previous);
+		T deleteMax(Node<T>* node, Node<T>* previous);
 		void preorder(Node<T>* node) const;
 		void inorder(Node<T>* node) const;
 

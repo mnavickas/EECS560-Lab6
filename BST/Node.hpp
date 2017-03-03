@@ -17,7 +17,7 @@ namespace Tree
 		Node(const Node<T>& other);
 
 		void setValue(T aValue);
-		int getValue() const;
+		T getValue() const;
 
 		Node<T>* getLeft() const;
 		Node<T>* getRight() const;

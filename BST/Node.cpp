@@ -33,7 +33,7 @@ Node<T>::Node(const Node<T>& other)
 	}
 }
 template<typename T>
-int Node<T>::getValue() const
+T Node<T>::getValue() const
 {
 	return mValue;
 }

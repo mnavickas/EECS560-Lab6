@@ -83,7 +83,7 @@ void BinarySearchTree<T>::remove(int value)
  *
  ******************************************************************************/
 template <typename T>
-int BinarySearchTree<T>::deleteMin()
+T BinarySearchTree<T>::deleteMin()
 {
 	if(mRoot == nullptr)
 	{
@@ -95,7 +95,7 @@ int BinarySearchTree<T>::deleteMin()
  *
  ******************************************************************************/
 template <typename T>
-int BinarySearchTree<T>::deleteMax()
+T BinarySearchTree<T>::deleteMax()
 {
 	if(mRoot == nullptr)
 	{
@@ -316,7 +316,7 @@ Node<T>* BinarySearchTree<T>::remove(Node<T>* node, int value, bool* removed)
  *
  ******************************************************************************/
 template <typename T>
-int BinarySearchTree<T>::deleteMin(Node<T>* node, Node<T>* previous)
+T BinarySearchTree<T>::deleteMin(Node<T>* node, Node<T>* previous)
 {
 	if(node->getLeft() != nullptr)
 	{
@@ -345,7 +345,7 @@ int BinarySearchTree<T>::deleteMin(Node<T>* node, Node<T>* previous)
  *
  ******************************************************************************/
 template <typename T>
-int BinarySearchTree<T>::deleteMax(Node<T>* node, Node<T>* previous)
+T BinarySearchTree<T>::deleteMax(Node<T>* node, Node<T>* previous)
 {
 	if(node->getRight() != nullptr)
 	{
